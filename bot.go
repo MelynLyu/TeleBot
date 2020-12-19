@@ -1,4 +1,4 @@
-package TeleBot
+package main
 
 import (
 	"TeleBot/BotLogger"
@@ -13,6 +13,10 @@ type Bot struct {
 }
 
 func (b *Bot) Setup(token string) {
+	b.commonLogger = new(BotLogger.BotLogger)
+	b.errLogger = new(BotLogger.BotLogger)
+	b.bot = new(tgbotapi.BotAPI)
+
 	var err error
 	b.commonLogger.Setup("")
 	b.errLogger.Setup("error.log")
@@ -25,6 +29,6 @@ func (b *Bot) Setup(token string) {
 }
 
 func main() {
-	var testBot Bot
-	testBot.Setup(os.Getenv("TeleBot"))
+	testBot := new(Bot)
+	testBot.Setup(os.Getenv("1425793403:AAEhKyPUvwjhmkcBcsdQGD8kuSnI_LiqMEQ"))
 }

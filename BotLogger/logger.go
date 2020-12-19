@@ -1,7 +1,6 @@
 package BotLogger
 
 import (
-	"io"
 	"log"
 	"os"
 )
@@ -10,8 +9,12 @@ type BotLogger struct {
 	logger *log.Logger
 }
 
+func init() {
+	log.SetFlags(log.Ldate | log.Ltime | log.Lshortfile)
+}
+
 func (bl *BotLogger) Setup(logFile string) {
-	var file io.Writer
+	var file *os.File
 	var err error
 
 	if logFile == "" {
@@ -20,11 +23,11 @@ func (bl *BotLogger) Setup(logFile string) {
 		basePath := "~/logs/TeleBot/"
 		fileName := basePath + logFile
 		file, err = os.OpenFile(fileName, os.O_CREATE|os.O_WRONLY|os.O_APPEND, 0666)
+		defer file.Close()
 		if err != nil {
-			log.Fatalln("Open log file failed：", err)
+			log.Fatalln(err)
 		}
 	}
-
 	bl.logger = log.New(file, "", log.LstdFlags)
 	bl.logger.SetFlags(log.Ldate | log.Ltime | log.Lshortfile)
 }
