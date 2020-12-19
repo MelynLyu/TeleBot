@@ -30,5 +30,5 @@ func (b *Bot) Setup(token string) {
 
 func main() {
 	testBot := new(Bot)
-	testBot.Setup(os.Getenv("1425793403:AAEhKyPUvwjhmkcBcsdQGD8kuSnI_LiqMEQ"))
+	testBot.Setup(os.Getenv("TeleBotToken"))
 }

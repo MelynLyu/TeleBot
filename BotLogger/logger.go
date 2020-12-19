@@ -22,11 +22,11 @@ func (bl *BotLogger) Setup(logFile string) {
 	} else {
 		basePath := "~/logs/TeleBot/"
 		fileName := basePath + logFile
-		file, err = os.OpenFile(fileName, os.O_CREATE|os.O_WRONLY|os.O_APPEND, 0666)
-		defer file.Close()
+		file, err = os.OpenFile(fileName, os.O_WRONLY|os.O_APPEND, 0666)
 		if err != nil {
 			log.Fatalln(err)
 		}
+		defer file.Close()
 	}
 	bl.logger = log.New(file, "", log.LstdFlags)
 	bl.logger.SetFlags(log.Ldate | log.Ltime | log.Lshortfile)
