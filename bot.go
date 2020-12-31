@@ -1,8 +1,8 @@
 package main
 
 import (
-	"TeleBot/BotLogger"
-	"github.com/go-telegram-bot-api/telegram-bot-api"
+	"./BotLogger"
+	tgbotapi "github.com/go-telegram-bot-api/telegram-bot-api"
 	"os"
 )
 

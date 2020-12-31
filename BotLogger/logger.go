@@ -20,7 +20,7 @@ func (bl *BotLogger) Setup(logFile string) {
 	if logFile == "" {
 		file = os.Stderr
 	} else {
-		basePath := "~/logs/TeleBot/"
+		basePath := "/home/melyn/logs/TeleBot/"
 		fileName := basePath + logFile
 		file, err = os.OpenFile(fileName, os.O_WRONLY|os.O_APPEND, 0666)
 		if err != nil {
