@@ -23,12 +23,28 @@ func (b *Bot) Setup(token string) {
 
 	b.bot, err = tgbotapi.NewBotAPI(token)
 	if err != nil {
-		b.errLogger.Outputln("Failed to Create a Bot API Instance. ", err)
+		b.errLogger.Outputln("Failed to Create a Bot API Instance.", err)
 	}
 	b.commonLogger.Outputf("Authorized on account %s", b.bot.Self.UserName)
 }
 
 func main() {
-	testBot := new(Bot)
-	testBot.Setup(os.Getenv("TeleBotToken"))
+	TestBot := new(Bot)
+	TestBot.Setup(os.Getenv("TeleBotToken"))
+
+	u := tgbotapi.NewUpdate(0)
+	u.Timeout = 60
+
+	updates, err := TestBot.bot.GetUpdatesChan(u)
+	if err != nil {
+		TestBot.errLogger.Outputln("Failed to Get Updates.", err)
+		os.Exit(-1)
+	}
+
+	for update := range updates {
+		if update.Message == nil {
+			continue
+		}
+		TestBot.commonLogger.Outputf("[%s] %s", update.Message.From.UserName, update.Message.Text)
+	}
 }
